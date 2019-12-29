@@ -17,12 +17,10 @@ class MainActivity : AppCompatActivity(),IFlowerView{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        recyclerView.layoutManager = GridLayoutManager(this,2)
-
-
         FlowerPresenter(this).getDataFromApi()
     }
     override fun getFlowers(flower: List<Flower>) {
+        recyclerView.layoutManager = GridLayoutManager(this,2)
         val adapter = CustomAdapter(flower)
         recyclerView.adapter = adapter
     }
