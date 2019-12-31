@@ -12,9 +12,22 @@ import retrofit2.Response
 class FlowerPresenter(context: Context){
     val flowerView = context as IFlowerView
 
-    fun getDataFromApi(){
+    fun getDataFromApi(page:Int){
         RetrofitServices.create()
-            .getApi()
+            .getApi(page)
+            .enqueue(object : Callback<Flowers>{
+                override fun onResponse(call: Call<Flowers>, response: Response<Flowers>) {
+                    flowerView.getFlowers(response.body()?.flowers as List<Flower>)
+
+                }
+                override fun onFailure(call: Call<Flowers>, t: Throwable) {
+                    flowerView.onDataFailiure(t)
+                }
+            })
+    }
+    fun getSeachDataFromApi(flowername:String){
+        RetrofitServices.create()
+            .getSearchApi(flowername)
             .enqueue(object : Callback<Flowers>{
                 override fun onResponse(call: Call<Flowers>, response: Response<Flowers>) {
                     flowerView.getFlowers(response.body()?.flowers as List<Flower>)

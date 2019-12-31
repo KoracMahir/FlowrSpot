@@ -7,10 +7,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface RetrofitServices{
-    @GET("api/v1/flowers?page=0")
-    fun getApi() : Call<Flowers>
+    @GET("api/v1/flowers?")
+    fun getApi(@Query("page") page:Int) : Call<Flowers>
+
+    @GET("api/v1/flowers/search?")
+    fun getSearchApi(@Query("query") searchtext:String) : Call<Flowers>
 
     companion object {
         fun create(): RetrofitServices{
@@ -21,5 +25,8 @@ interface RetrofitServices{
             return retrofit.create(RetrofitServices::class.java)
         }
     }
+
+
+
 
 }
