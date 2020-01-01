@@ -18,10 +18,11 @@ class FlowerPresenter(context: Context){
             .enqueue(object : Callback<Flowers>{
                 override fun onResponse(call: Call<Flowers>, response: Response<Flowers>) {
                     flowerView.getFlowers(response.body()?.flowers as List<Flower>)
-
+                    flowerView.moveProgressBar()
                 }
                 override fun onFailure(call: Call<Flowers>, t: Throwable) {
                     flowerView.onDataFailiure(t)
+                    flowerView.showProgressBar()
                 }
             })
     }
@@ -31,9 +32,11 @@ class FlowerPresenter(context: Context){
             .enqueue(object : Callback<Flowers>{
                 override fun onResponse(call: Call<Flowers>, response: Response<Flowers>) {
                     flowerView.getFlowers(response.body()?.flowers as List<Flower>)
+                    flowerView.moveProgressBar()
                 }
                 override fun onFailure(call: Call<Flowers>, t: Throwable) {
                     flowerView.onDataFailiure(t)
+                    flowerView.showProgressBar()
                 }
             })
     }

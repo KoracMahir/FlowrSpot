@@ -1,5 +1,7 @@
 package com.mahir.flowrspottestproject
 
+import android.annotation.SuppressLint
+import android.app.ActionBar
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
@@ -18,6 +20,7 @@ import android.view.View
 class MainActivity : AppCompatActivity(),IFlowerView{
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -25,6 +28,15 @@ class MainActivity : AppCompatActivity(),IFlowerView{
         GetSeachableText(this)
 
     }
+
+    override fun showProgressBar() {
+        pBar.visibility = View.VISIBLE
+    }
+
+    override fun moveProgressBar() {
+        pBar.visibility = View.GONE
+    }
+
     fun GetSeachableText(context: Context){
         menu_search.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
@@ -39,9 +51,6 @@ class MainActivity : AppCompatActivity(),IFlowerView{
                 FlowerPresenter(context).getSeachDataFromApi(p0.toString())
             }
         })
-    }
-    fun ParseSeachableText(seach:String):String{
-        return seach
     }
     override fun getFlowers(flower: List<Flower>) {
         recyclerView.layoutManager = GridLayoutManager(this,2)
