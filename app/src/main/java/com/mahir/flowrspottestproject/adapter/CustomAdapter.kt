@@ -42,7 +42,7 @@ class CustomAdapter(val flowerList: List<Flower>) : RecyclerView.Adapter<CustomA
             profile_pictureURL = flower.profile_picture
             latin_name.text = flower.latin_name
             name.text = flower.name
-            sightings.text = "sightings: "+flower.sightings
+            sightings.text = "sightings"+flower.sightings
             Glide.with(itemView)
                 .load("https:"+profile_pictureURL)
                 .into(profile_picture)

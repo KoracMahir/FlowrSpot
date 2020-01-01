@@ -21,15 +21,17 @@ class MainActivity : AppCompatActivity(),IFlowerView{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        FlowerPresenter(this).getDataFromApi(0)
+        FlowerPresenter(this).getDataFromApi(1)
         GetSeachableText(this)
 
     }
     fun GetSeachableText(context: Context){
         menu_search.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                if(p0.toString()=="")
-                    FlowerPresenter(context).getDataFromApi(0)
+                if(p0.toString().isEmpty())
+                    FlowerPresenter(context).getDataFromApi(1)
+                else
+                    FlowerPresenter(context).getSeachDataFromApi(p0.toString())
             }
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
@@ -43,12 +45,14 @@ class MainActivity : AppCompatActivity(),IFlowerView{
     }
     override fun getFlowers(flower: List<Flower>) {
         recyclerView.layoutManager = GridLayoutManager(this,2)
+        recyclerView.setHasFixedSize(true)
         val adapter = CustomAdapter(flower)
         recyclerView.adapter = adapter
     }
 
     override fun getFlowerSearch(flowers: List<Flower>) {
         recyclerView.layoutManager = GridLayoutManager(this,2)
+        recyclerView.setHasFixedSize(true)
         val adapter = CustomAdapter(flowers)
         recyclerView.adapter = adapter
     }
