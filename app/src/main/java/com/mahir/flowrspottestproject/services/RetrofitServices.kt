@@ -1,5 +1,6 @@
 package com.mahir.flowrspottestproject.services
 
+import com.mahir.flowrspottestproject.model.FlowerDetail
 import com.mahir.flowrspottestproject.model.Flowers
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -15,6 +16,9 @@ interface RetrofitServices{
 
     @GET("api/v1/flowers/search?")
     fun getSearchApi(@Query("query") searchtext:String) : Call<Flowers>
+
+    @GET("/api/v1/flowers/{id}")
+    fun getFlowerDetailApi(@Path("id") id:Int) : Call<FlowerDetail>
 
     companion object {
         fun create(): RetrofitServices{
