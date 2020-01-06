@@ -19,6 +19,8 @@ import com.mahir.flowrspottestproject.views.FlowerDetailFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.mahir.flowrspottestproject.interfacex.IFlowerView
+import com.mahir.flowrspottestproject.presenter.FlowerPresenter
 import com.mahir.flowrspottestproject.views.HomeFragment
 import com.mahir.flowrspottestproject.views.HomeFragmentDirections
 import kotlinx.android.synthetic.main.fragment_flower_detail.view.*
@@ -29,7 +31,21 @@ import kotlinx.android.synthetic.main.recycler_view_item.view.sightings
 import java.lang.Exception
 
 
-class CustomAdapter(val flowerList: List<Flower>,val findNavController: NavController) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+
+
+
+
+
+
+class CustomAdapter : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+
+    var flowerList: List<Flower> = emptyList()
+    var findNavController: NavController? = null
+
+    fun CustomAdapter(flist:List<Flower>,navcon:NavController){
+        this.flowerList = flist
+        this.findNavController = navcon
+    }
 
     //this method is returning the view for each item in the list
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomAdapter.ViewHolder {
@@ -48,7 +64,7 @@ class CustomAdapter(val flowerList: List<Flower>,val findNavController: NavContr
 
                 val action : HomeFragmentDirections.ActionHomeFragmentToFlowerDetailFragment
                 action = HomeFragmentDirections.actionHomeFragmentToFlowerDetailFragment().setFlowerid(holder.getItemId(flowerList[position]))
-                findNavController.navigate(action)
+                findNavController?.navigate(action)
                 Log.d("massage","id: "+holder.getItemId(flowerList[position]))
             }
         }catch (e:Exception){

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.NonNull
 import androidx.fragment.app.FragmentActivity
 import com.bumptech.glide.Glide
 
@@ -17,7 +18,7 @@ import com.mahir.flowrspottestproject.model.FlowerX
 import com.mahir.flowrspottestproject.presenter.FlowerDetailPresenter
 import com.mahir.flowrspottestproject.presenter.FlowerPresenter
 import kotlinx.android.synthetic.main.fragment_flower_detail.*
-import kotlinx.android.synthetic.main.recycler_view_item.view.*
+import kotlinx.android.synthetic.main.fragment_flower_detail.pBar
 
 class FlowerDetailFragment : Fragment(),FlowerDetailView {
 
@@ -40,6 +41,7 @@ class FlowerDetailFragment : Fragment(),FlowerDetailView {
         }
     }
     override fun getFlowerDetails(flowerdetail: FlowerX) {
+        @NonNull
         name.text = flowerdetail.name
         latin_name.text = flowerdetail.latin_name
         description.text = flowerdetail.description
@@ -51,10 +53,12 @@ class FlowerDetailFragment : Fragment(),FlowerDetailView {
             .into(profile_picture)
     }
 
-    override fun moveProgressBar() {
+    override fun showProgressBar() {
+        pBar.visibility = View.VISIBLE
     }
 
-    override fun showProgressBar() {
+    override fun moveProgressBar() {
+        pBar.visibility = View.GONE
     }
 
 }

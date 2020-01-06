@@ -7,7 +7,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
 import android.widget.EditText
+import android.widget.ListAdapter
 import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -25,7 +27,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class HomeFragment : Fragment(), IFlowerView {
-
+    var adapter = CustomAdapter()
     var flowerPresenter = FlowerPresenter(this)
 
     override fun onCreateView(
@@ -34,15 +36,13 @@ class HomeFragment : Fragment(), IFlowerView {
     ): View? {
         val view : View = inflater.inflate(R.layout.fragment_home, container, false)
 
+
+
         flowerPresenter.getDataFromApi(1)
         getSeachableText(view)
         return view
     }
 
-    override fun onViewCreated(view: View,  savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-//        navController(view).navigate(R.id.action_homeFragment_to_flowerDetailFragment)
-    }
     fun navController(view: View):NavController{
         val navController = Navigation.findNavController(view)
         return navController
@@ -80,14 +80,14 @@ class HomeFragment : Fragment(), IFlowerView {
     override fun getFlowers(flower: List<Flower>) {
         recyclerView.layoutManager = GridLayoutManager(context,2)
         recyclerView.setHasFixedSize(true)
-        val adapter = CustomAdapter(flower,navController(requireView()))
+        adapter.CustomAdapter(flower,navController(requireView()))
         recyclerView.adapter = adapter
     }
 
     override fun getFlowerSearch(flowers: List<Flower>) {
         recyclerView.layoutManager = GridLayoutManager(context,2)
         recyclerView.setHasFixedSize(true)
-        val adapter = CustomAdapter(flowers,navController(requireView()))
+        adapter.CustomAdapter(flowers,navController(requireView()))
         recyclerView.adapter = adapter
     }
 
