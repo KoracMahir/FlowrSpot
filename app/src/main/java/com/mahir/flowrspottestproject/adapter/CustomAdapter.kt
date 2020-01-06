@@ -1,27 +1,59 @@
 package com.mahir.flowrspottestproject.adapter
 
+import android.app.PendingIntent.getActivity
+import android.net.NetworkInfo
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
+import android.widget.Toolbar
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.mahir.flowrspottestproject.MainActivity
 import com.mahir.flowrspottestproject.R
 import com.mahir.flowrspottestproject.model.Flower
+import kotlinx.android.synthetic.main.recycler_view_item.view.*
+import androidx.appcompat.app.AppCompatActivity
+import com.mahir.flowrspottestproject.views.FlowerDetailFragment
+import androidx.fragment.app.FragmentActivity
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import com.mahir.flowrspottestproject.views.HomeFragment
+import com.mahir.flowrspottestproject.views.HomeFragmentDirections
+import kotlinx.android.synthetic.main.fragment_flower_detail.view.*
+import kotlinx.android.synthetic.main.recycler_view_item.view.latin_name
+import kotlinx.android.synthetic.main.recycler_view_item.view.name
+import kotlinx.android.synthetic.main.recycler_view_item.view.profile_picture
+import kotlinx.android.synthetic.main.recycler_view_item.view.sightings
+import java.lang.Exception
 
-class CustomAdapter(val flowerList: List<Flower>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+
+class CustomAdapter(val flowerList: List<Flower>,val findNavController: NavController) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     //this method is returning the view for each item in the list
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomAdapter.ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_item, parent, false)
-        return ViewHolder(v)
+        val vHolder : ViewHolder = ViewHolder(v)
+        return vHolder
     }
 
     //this method is binding the data on the list
     override fun onBindViewHolder(holder: CustomAdapter.ViewHolder, position: Int) {
         holder.bindItems(flowerList[position])
+
+
+        try {
+            holder.itemView.setOnClickListener {
+
+                val action : HomeFragmentDirections.ActionHomeFragmentToFlowerDetailFragment
+                action = HomeFragmentDirections.actionHomeFragmentToFlowerDetailFragment().setFlowerid(holder.getItemId(flowerList[position]))
+                findNavController.navigate(action)
+                Log.d("massage","id: "+holder.getItemId(flowerList[position]))
+            }
+        }catch (e:Exception){
+            Log.d("massage","error: "+e.toString())
+        }
     }
 
     //this method is giving the size of the list
@@ -30,24 +62,23 @@ class CustomAdapter(val flowerList: List<Flower>) : RecyclerView.Adapter<CustomA
     }
 
     //the class is hodling the list view
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
         fun bindItems(flower: Flower) {
             val profile_pictureURL: String
-            val profile_picture: ImageView =itemView.findViewById(R.id.profile_picture) as ImageView
-            val latin_name = itemView.findViewById(R.id.latin_name) as TextView
-            val name = itemView.findViewById(R.id.name) as TextView
-            val sightings = itemView.findViewById(R.id.sightings) as TextView
-
             profile_pictureURL = flower.profile_picture
-            latin_name.text = flower.latin_name
-            name.text = flower.name
-            sightings.text = "sightings: "+flower.sightings
+            itemView.latin_name.text = flower.latin_name
+            itemView.name.text = flower.name
+            itemView.sightings.text = "sightings"+flower.sightings
             Glide.with(itemView)
                 .load("https:"+profile_pictureURL)
-                .into(profile_picture)
+                .into(itemView.profile_picture)
 
 
         }
+        fun getItemId(flower: Flower):Int{
+            return flower.id.toInt()
+        }
+
     }
 }
