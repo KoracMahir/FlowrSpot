@@ -35,10 +35,13 @@ class HomeFragment : Fragment(), IFlowerView,CustomAdapterView {
         savedInstanceState: Bundle?
     ): View? {
         val view : View = inflater.inflate(R.layout.fragment_home, container, false)
-
-        flowerPresenter.getDataFromApi(1)
-        getSeachableText(view)
         return view
+    }
+
+    override fun onStart() {
+        super.onStart()
+        flowerPresenter.getDataFromApi(1)
+        getSeachableText(requireView())
     }
 
     fun navController(view: View):NavController{

@@ -31,9 +31,8 @@ class FlowerDetailFragment : Fragment(),FlowerDetailView {
         return inflater.inflate(R.layout.fragment_flower_detail, container, false)
     }
 
-    override fun onViewCreated(view: View,  savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun onStart() {
+        super.onStart()
         arguments?.let {
             val safeArgs = FlowerDetailFragmentArgs.fromBundle(it)
             val id1 = safeArgs.flowerid
