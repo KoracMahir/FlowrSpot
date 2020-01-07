@@ -8,21 +8,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
 import android.widget.EditText
-import android.widget.ListAdapter
 import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.mahir.flowrspottestproject.MainActivity
 import com.mahir.flowrspottestproject.R
 import com.mahir.flowrspottestproject.adapter.CustomAdapter
 import com.mahir.flowrspottestproject.adapter.CustomAdapterView
 import com.mahir.flowrspottestproject.adapter.CustomViewHolder
-import com.mahir.flowrspottestproject.interfacex.FlowerDetailView
 import com.mahir.flowrspottestproject.interfacex.IFlowerView
 import com.mahir.flowrspottestproject.model.Flower
 import com.mahir.flowrspottestproject.presenter.FlowerPresenter
@@ -34,7 +28,7 @@ class HomeFragment : Fragment(), IFlowerView,CustomAdapterView {
 
 
 
-    var adapter = CustomAdapter()
+    var adapter = CustomAdapter(this)
     var flowerPresenter = FlowerPresenter(this)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -99,6 +93,7 @@ class HomeFragment : Fragment(), IFlowerView,CustomAdapterView {
         Toast.makeText(context, throwable.toString(),Toast.LENGTH_LONG).show()
     }
     override fun sendItemId(id: Int) {
+        Log.d("got id: ",id.toString())
         var findNavController : NavController = navController(requireView())
         val action : HomeFragmentDirections.ActionHomeFragmentToFlowerDetailFragment
         action = HomeFragmentDirections.actionHomeFragmentToFlowerDetailFragment().setFlowerid(id)

@@ -5,13 +5,11 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mahir.flowrspottestproject.model.Flower
-import com.mahir.flowrspottestproject.views.HomeFragmentDirections
 import kotlinx.android.synthetic.main.recycler_view_item.view.*
-import java.lang.Exception
 
-class CustomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+class CustomViewHolder(itemView: View, customAdapterView: CustomAdapterView) : RecyclerView.ViewHolder(itemView){
 
-    val customAdapterView : CustomAdapterView? = null
+    val customAdapterView =customAdapterView
 
     fun bindItems(flower: Flower) {
         val profile_pictureURL: String
@@ -23,21 +21,10 @@ class CustomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
             .load("https:"+profile_pictureURL)
             .into(itemView.profile_picture)
 
-
-    }
-    fun sendItemId(flower: Flower){
-        val holder = CustomViewHolder(itemView)
+        val holder = CustomViewHolder(itemView,customAdapterView)
         holder.itemView.setOnClickListener {
-            if (customAdapterView != null) {
-                Log.d("id: ",flower.id)
-                customAdapterView.sendItemId(flower.id.toInt())
-            }
+            Log.d("id: ",flower.id)
+            customAdapterView?.sendItemId(flower.id.toInt())
         }
-    }
-    fun getItemId(flower: Flower):Int{
-        return flower.id.toInt()
-    }
-    interface sentData{
-        fun sendID(id:Int)
     }
 }
