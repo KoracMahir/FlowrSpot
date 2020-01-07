@@ -37,39 +37,29 @@ import java.lang.Exception
 
 
 
-class CustomAdapter : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class CustomAdapter : RecyclerView.Adapter<CustomViewHolder>(){
 
     var flowerList: List<Flower> = emptyList()
-    var findNavController: NavController? = null
 
-    fun CustomAdapter(flist:List<Flower>,navcon:NavController){
+
+    fun customAdapter(flist:List<Flower>){
         this.flowerList = flist
-        this.findNavController = navcon
     }
 
     //this method is returning the view for each item in the list
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_item, parent, false)
-        val vHolder : ViewHolder = ViewHolder(v)
+        val vHolder : CustomViewHolder = CustomViewHolder(v)
+
+
+
         return vHolder
     }
 
     //this method is binding the data on the list
-    override fun onBindViewHolder(holder: CustomAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         holder.bindItems(flowerList[position])
-
-
-        try {
-            holder.itemView.setOnClickListener {
-
-                val action : HomeFragmentDirections.ActionHomeFragmentToFlowerDetailFragment
-                action = HomeFragmentDirections.actionHomeFragmentToFlowerDetailFragment().setFlowerid(holder.getItemId(flowerList[position]))
-                findNavController?.navigate(action)
-                Log.d("massage","id: "+holder.getItemId(flowerList[position]))
-            }
-        }catch (e:Exception){
-            Log.d("massage","error: "+e.toString())
-        }
+        holder.sendItemId(flowerList[position])
     }
 
     //this method is giving the size of the list
@@ -77,24 +67,5 @@ class CustomAdapter : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
         return flowerList.size
     }
 
-    //the class is hodling the list view
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
-        fun bindItems(flower: Flower) {
-            val profile_pictureURL: String
-            profile_pictureURL = flower.profile_picture
-            itemView.latin_name.text = flower.latin_name
-            itemView.name.text = flower.name
-            itemView.sightings.text = "sightings"+flower.sightings
-            Glide.with(itemView)
-                .load("https:"+profile_pictureURL)
-                .into(itemView.profile_picture)
-
-
-        }
-        fun getItemId(flower: Flower):Int{
-            return flower.id.toInt()
-        }
-
-    }
 }

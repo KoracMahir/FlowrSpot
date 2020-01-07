@@ -3,6 +3,7 @@ package com.mahir.flowrspottestproject.views
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mahir.flowrspottestproject.MainActivity
 import com.mahir.flowrspottestproject.R
 import com.mahir.flowrspottestproject.adapter.CustomAdapter
+import com.mahir.flowrspottestproject.adapter.CustomAdapterView
+import com.mahir.flowrspottestproject.adapter.CustomViewHolder
+import com.mahir.flowrspottestproject.interfacex.FlowerDetailView
 import com.mahir.flowrspottestproject.interfacex.IFlowerView
 import com.mahir.flowrspottestproject.model.Flower
 import com.mahir.flowrspottestproject.presenter.FlowerPresenter
@@ -26,17 +30,17 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 
 
-class HomeFragment : Fragment(), IFlowerView {
+class HomeFragment : Fragment(), IFlowerView,CustomAdapterView {
+
+
+
     var adapter = CustomAdapter()
     var flowerPresenter = FlowerPresenter(this)
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view : View = inflater.inflate(R.layout.fragment_home, container, false)
-
-
 
         flowerPresenter.getDataFromApi(1)
         getSeachableText(view)
@@ -80,18 +84,25 @@ class HomeFragment : Fragment(), IFlowerView {
     override fun getFlowers(flower: List<Flower>) {
         recyclerView.layoutManager = GridLayoutManager(context,2)
         recyclerView.setHasFixedSize(true)
-        adapter.CustomAdapter(flower,navController(requireView()))
+        adapter.customAdapter(flower)
         recyclerView.adapter = adapter
     }
 
     override fun getFlowerSearch(flowers: List<Flower>) {
         recyclerView.layoutManager = GridLayoutManager(context,2)
         recyclerView.setHasFixedSize(true)
-        adapter.CustomAdapter(flowers,navController(requireView()))
+        adapter.customAdapter(flowers)
         recyclerView.adapter = adapter
     }
 
     override fun onDataFailiure(throwable: Throwable) {
         Toast.makeText(context, throwable.toString(),Toast.LENGTH_LONG).show()
     }
+    override fun sendItemId(id: Int) {
+        var findNavController : NavController = navController(requireView())
+        val action : HomeFragmentDirections.ActionHomeFragmentToFlowerDetailFragment
+        action = HomeFragmentDirections.actionHomeFragmentToFlowerDetailFragment().setFlowerid(id)
+        findNavController.navigate(action)
+    }
+
 }
