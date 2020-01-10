@@ -1,29 +1,30 @@
 package com.mahir.flowrspottestproject.views
 
-import android.content.Context
-import android.net.Uri
+import android.graphics.drawable.Drawable
+import android.media.Image
 import android.os.Bundle
+import android.preference.PreferenceManager
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.NonNull
-import androidx.fragment.app.FragmentActivity
 import com.bumptech.glide.Glide
 
 import com.mahir.flowrspottestproject.R
 import com.mahir.flowrspottestproject.interfacex.FlowerDetailView
 import com.mahir.flowrspottestproject.model.FlowerX
 import com.mahir.flowrspottestproject.presenter.FlowerDetailPresenter
-import com.mahir.flowrspottestproject.presenter.FlowerPresenter
 import kotlinx.android.synthetic.main.fragment_flower_detail.*
 import kotlinx.android.synthetic.main.fragment_flower_detail.pBar
+import kotlinx.android.synthetic.main.recycler_view_item.view.*
 
 class FlowerDetailFragment : Fragment(),FlowerDetailView {
 
     var flowerPresenter = FlowerDetailPresenter(this)
-
+    var favidlist = listOf<String>()
+    var i=true
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,14 +34,45 @@ class FlowerDetailFragment : Fragment(),FlowerDetailView {
 
     override fun onStart() {
         super.onStart()
+
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        prefs.apply {
+            val favlist = getString("favlist","")
+            favidlist = favlist.split(",")
+            Log.d("list",favlist)
+        }
+
         arguments?.let {
             val safeArgs = FlowerDetailFragmentArgs.fromBundle(it)
             val id1 = safeArgs.flowerid
             flowerPresenter.getFlowerDetail(id1)
+            if(favidlist.contains(id1.toString())){ i=false
+                fav_btn.setBackgroundResource(R.drawable.ic_icon)
+            }else{ i=true
+                fav_btn.setBackgroundResource(R.drawable.ic_group)
+            }
+            fav_btn.setOnClickListener(View.OnClickListener {
+                if(i==true){ i=false
+                    clickFavBtn(id1)
+                    fav_btn.setBackgroundResource(R.drawable.ic_icon)
+                }else{ i=true
+                    fav_btn.setBackgroundResource(R.drawable.ic_group)
+                }
+            })
+        }
+    }
+    fun clickFavBtn(id1:Int){
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        prefs.apply {
+            val auth_key = getString("auth_token","")
+            flowerPresenter.setFlowerFavorite(id1,auth_key)
         }
     }
     override fun getFlowerDetails(flowerdetail: FlowerX) {
         @NonNull
+        if(favidlist.contains(flowerdetail.id.toString())){
+            fav_btn.setBackgroundResource(R.drawable.ic_icon)
+        }
         name.text = flowerdetail.name
         latin_name.text = flowerdetail.latin_name
         description.text = flowerdetail.description
@@ -60,4 +92,7 @@ class FlowerDetailFragment : Fragment(),FlowerDetailView {
         pBar.visibility = View.GONE
     }
 
+    override fun getflowerfavorite(flowerFavorite: Int) {
+
+    }
 }
