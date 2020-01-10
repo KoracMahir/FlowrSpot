@@ -9,28 +9,22 @@ import com.mahir.flowrspottestproject.model.Flower
 
 class CustomAdapter(customAdapterView : CustomAdapterView) : RecyclerView.Adapter<CustomViewHolder>(){
 
+    val customAdapterView = customAdapterView
     var flowerList: List<Flower> = emptyList()
-    var customAdapterView = customAdapterView
 
-    fun customAdapter(flist:List<Flower>){
+    fun addItems(flist:List<Flower>){
         this.flowerList = flist
     }
 
     //this method is returning the view for each item in the list
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_item, parent, false)
-        val vHolder : CustomViewHolder = CustomViewHolder(v,customAdapterView)
-
-
-
-        return vHolder
+        return CustomViewHolder(v,customAdapterView,parent.context)
     }
 
     //this method is binding the data on the list
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         holder.bindItems(flowerList[position])
-
-
     }
 
     //this method is giving the size of the list
