@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
@@ -11,19 +13,31 @@
         <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:src="@drawable/ic_action_name"
                 android:scaleType="centerCrop"/>
-        <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/relativeLayout4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:gravity="center">
-            <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+
+            <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="107dp"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/ic_pl_logo"
-                    android:layout_marginRight="25dp"
-                    android:scaleType="centerCrop"/>
-        </RelativeLayout>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </Toolbar>
 
     <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        <RelativeLayout
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/relativeLayout5"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal">
@@ -32,86 +46,112 @@
                     android:id="@+id/profile_picture"
                     android:layout_width="match_parent"
                     android:layout_height="351dp"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/image"
-                    android:scaleType="centerCrop"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
             <ImageView
+                    android:id="@+id/imageView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="175dp"
                     android:src="@drawable/ic_rectangle_2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                    android:id="@+id/fav_btn"
+                    android:layout_width="43dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="23dp"
                     android:layout_marginTop="175dp"
-                    android:layout_marginLeft="63dp"/>
-            <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_group"
-                    android:layout_marginTop="175dp"
-                    android:layout_marginLeft="23dp"/>
+                    android:background="@drawable/ic_group"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
             <TextView
                     android:id="@+id/sightings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="78dp"
+                    android:layout_marginTop="184dp"
                     android:text="0 sightings"
                     android:textColor="@color/white"
-                    android:layout_marginTop="179dp"
-                    android:layout_marginLeft="78dp"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                     android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="23dp"
+                    android:layout_marginTop="220dp"
                     android:text="Loading.."
                     android:textColor="@color/white"
-                    android:layout_marginTop="220dp"
-                    android:layout_marginLeft="23dp"
-                    android:textSize="35dp"/>
+                    android:textSize="35dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                     android:id="@+id/latin_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="23dp"
+                    android:layout_marginTop="270dp"
                     android:text="Loading.."
                     android:textColor="@color/white"
-                    android:layout_marginTop="270dp"
-                    android:layout_marginLeft="23dp"/>
-            <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_base"
-                    android:layout_marginTop="327dp"
-                    android:layout_marginLeft="23dp"/>
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="+Add New Sighting"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:layout_marginTop="342dp"
-                    android:layout_marginLeft="53dp"/>
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="409dp"
-                    android:orientation="vertical">
-                <TextView
-                        android:id="@+id/description"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/grey"
-                        android:text="Loading.."
-                        android:layout_marginLeft="24dp"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            </LinearLayout>
-            <LinearLayout
+            <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="23dp"
+                    android:layout_marginTop="327dp"
+                    android:src="@drawable/ic_base"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="53dp"
+                    android:layout_marginTop="344dp"
+                    android:text="+Add New Sighting"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                    android:id="@+id/description"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="23dp"
+                    android:layout_marginTop="409dp"
+                    android:layout_marginEnd="23dp"
+                    android:text="Loading.."
+                    android:textColor="@color/grey"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                    android:id="@+id/pBar"
+                    style="?android:attr/progressBarStyleLarge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="420dp"
-                    android:orientation="vertical">
-                <ProgressBar
-                        android:id="@+id/pBar"
-                        style="?android:attr/progressBarStyleLarge"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:visibility="visible"
-                        android:layout_gravity="center"/>
-            </LinearLayout>
-        </RelativeLayout>
+                    android:layout_gravity="center"
+                    android:layout_marginTop="430dp"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </LinearLayout>
