@@ -6,4 +6,5 @@ interface FlowerDetailView{
     fun getFlowerDetails(flowerdetail: FlowerX)
     fun moveProgressBar()
     fun showProgressBar()
+    fun getflowerfavorite(flowerFavorite: Int)
 }
