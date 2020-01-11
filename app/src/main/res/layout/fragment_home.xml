@@ -5,9 +5,11 @@
               android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
               android:descendantFocusability="beforeDescendants"
               android:focusableInTouchMode="true"
-              tools:context=".views.HomeFragment" android:orientation="vertical">
+              tools:context=".views.HomeFragment"
+              android:orientation="vertical">
 
     <Toolbar
+            android:id="@+id/toolbar1"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layoutMode="clipBounds"
@@ -34,15 +36,10 @@
     </Toolbar>
 
     <androidx.core.widget.NestedScrollView
+            android:id="@+id/scroll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+            app:layout_constraintTop_toBottomOf="@id/toolbar1">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/relativeLayout"
@@ -71,61 +68,63 @@
                         android:textColor="@color/white"
                         android:textSize="30dp"
                         android:textStyle="italic"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                         android:id="@+id/textView4"
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginTop="145dp"
-                        android:layout_marginEnd="4dp"
+                        android:layout_marginTop="26dp"
+                        android:layout_marginLeft="34dp"
+                        android:layout_marginRight="34dp"
+                        app:layout_constraintTop_toBottomOf="@id/textView3"
                         android:text="Explore between more then 8.427 sightings"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="15dp"
-                        android:textStyle="italic"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:textStyle="italic"/>
 
 
                 <EditText
+                        android:layout_marginTop="29dp"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginRight="24dp"
                         android:id="@+id/menu_search"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginTop="191dp"
-                        android:layout_marginEnd="24dp"
+                        app:layout_constraintTop_toBottomOf="@id/textView4"
                         android:background="@color/white"
                         android:fontFamily="sans-serif"
                         android:gravity="center"
-                        android:hint="Looking for something specific?"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:hint="Looking for something specific?"/>
 
+                <ProgressBar
+                        android:id="@+id/pBar"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginRight="50dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/imageView2"
+                        style="?android:attr/progressBarStyleLarge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="100dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:visibility="visible"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                        app:layout_constraintTop_toBottomOf="@id/imageView2"
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        app:spanCount="2"
+                        tools:itemCount="12"
+                        tools:listitem="@layout/recycler_view_item"
+                        android:layout_marginBottom="100dp"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <ProgressBar
-                    android:id="@+id/pBar"
-                    style="?android:attr/progressBarStyleLarge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:visibility="visible" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    app:spanCount="2"
-                    tools:itemCount="12"
-                    tools:listitem="@layout/recycler_view_item" />
-        </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
