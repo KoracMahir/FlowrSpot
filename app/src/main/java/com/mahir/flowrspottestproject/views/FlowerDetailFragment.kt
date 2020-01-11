@@ -1,7 +1,5 @@
 package com.mahir.flowrspottestproject.views
 
-import android.graphics.drawable.Drawable
-import android.media.Image
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.util.Log
@@ -10,15 +8,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.NonNull
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 
 import com.mahir.flowrspottestproject.R
 import com.mahir.flowrspottestproject.interfacex.FlowerDetailView
-import com.mahir.flowrspottestproject.model.FlowerX
+import com.mahir.flowrspottestproject.model.Flower
 import com.mahir.flowrspottestproject.presenter.FlowerDetailPresenter
 import kotlinx.android.synthetic.main.fragment_flower_detail.*
 import kotlinx.android.synthetic.main.fragment_flower_detail.pBar
-import kotlinx.android.synthetic.main.recycler_view_item.view.*
+import java.lang.Exception
 
 class FlowerDetailFragment : Fragment(),FlowerDetailView {
 
@@ -62,13 +61,17 @@ class FlowerDetailFragment : Fragment(),FlowerDetailView {
         }
     }
     fun clickFavBtn(id1:Int){
-        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        prefs.apply {
-            val auth_key = getString("auth_token","")
-            flowerPresenter.setFlowerFavorite(id1,auth_key)
+        try{
+            val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+            prefs.apply {
+                val auth_key = getString("auth_token","")
+                flowerPresenter.setFlowerFavorite(id1,auth_key)
+            }
+        }catch (e:Exception){
+            Log.d("refresh","go to login")
         }
     }
-    override fun getFlowerDetails(flowerdetail: FlowerX) {
+    override fun getFlowerDetails(flowerdetail: Flower) {
         @NonNull
         if(favidlist.contains(flowerdetail.id.toString())){
             fav_btn.setBackgroundResource(R.drawable.ic_icon)
