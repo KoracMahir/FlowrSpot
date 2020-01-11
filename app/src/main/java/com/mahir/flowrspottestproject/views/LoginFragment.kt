@@ -42,7 +42,7 @@ class LoginFragment : Fragment(),LoginView {
         val navController = Navigation.findNavController(view)
         return navController
     }
-    override fun loginSuccess(situation: Any) {
+    override fun loginSuccess(situation: String?) {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val editor = prefs.edit()
         if (situation!="null"){
@@ -51,11 +51,12 @@ class LoginFragment : Fragment(),LoginView {
                 .apply()
             var findNavController : NavController = navController(requireView())
             findNavController.navigate(R.id.action_loginFragment_to_homeFragment)
-        }else{
-            Toast.makeText(context,"Wrong email/password",Toast.LENGTH_LONG).show()
         }
     }
 
-    override fun loginFailiure(throwable: Throwable) {
+    override fun loginFailiure(throwable: String?) {
+        if (throwable=="null") {
+            Toast.makeText(context, "Wrong email or password",Toast.LENGTH_LONG).show()
+        }
     }
 }

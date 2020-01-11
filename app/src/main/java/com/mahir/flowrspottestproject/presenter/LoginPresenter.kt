@@ -16,14 +16,14 @@ class LoginPresenter(loginview: LoginView){
             .enqueue(object : retrofit2.Callback<LoginResponse>{
                 override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                     if (response.code()==400){
-                        loginView.loginSuccess(response.body()?.error.toString())
+                        loginView.loginFailiure(response.body()?.error.toString())
                     }else if(response.code()==200){
                         loginView.loginSuccess(response.body()?.auth_token.toString())
                     }
 
                 }
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                    loginView.loginFailiure(t)
+
                 }
             })
     }

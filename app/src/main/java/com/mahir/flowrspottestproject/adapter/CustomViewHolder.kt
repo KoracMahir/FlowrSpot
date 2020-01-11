@@ -58,8 +58,7 @@ class CustomViewHolder(itemView: View,customAdapterView:CustomAdapterView,contex
         itemView.sightings.text = "sightings"+flower.sightings
         Glide.with(itemView)
             .load("https:"+profile_pictureURL)
-            .into(itemView.profile_picture)
-
+            .into(itemView.profile_picture1)
         this.itemView.setOnClickListener {
             customAdapterView.sendItemId(flower.id.toInt())
         }

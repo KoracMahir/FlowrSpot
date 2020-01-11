@@ -20,7 +20,7 @@ class FlowerDetailPresenter(flowerDetailView: FlowerDetailView){
                 }
 
                 override fun onResponse(call: Call<FlowerDetail>, response: Response<FlowerDetail>) {
-                    flowerDetailView.getFlowerDetails(response.body()?.flower as FlowerX)
+                    flowerDetailView.getFlowerDetails(response.body()?.flower as Flower)
                     flowerDetailView.moveProgressBar()
                 }
 

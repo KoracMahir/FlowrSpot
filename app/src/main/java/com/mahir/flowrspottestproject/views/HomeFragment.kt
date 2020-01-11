@@ -46,13 +46,17 @@ class HomeFragment : Fragment(), IFlowerView,CustomAdapterView {
 
     override fun onStart() {
         super.onStart()
-        flowerPresenter.getDataFromApi(1)
         getSeachableText(requireView())
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         prefs.apply {
             val auth_key = getString("auth_token","")
-            flowerPresenter.refreshToken(auth_key)
-            flowerPresenter.getFavorite(1,auth_key)
+            try{
+                flowerPresenter.getDataFromApi(1)
+                flowerPresenter.refreshToken(auth_key)
+                flowerPresenter.getFavorite(1,auth_key)
+            }catch(e:java.lang.Exception){
+                flowerPresenter.refreshToken(auth_key)
+            }
         }
 
     }
@@ -113,7 +117,7 @@ class HomeFragment : Fragment(), IFlowerView,CustomAdapterView {
     override fun getFavorites(flowers: List<FavFlower>) {
         var favidlist = mutableListOf<Int>()
         for (i in 0..(flowers.size-1)) {
-            favidlist.add(flowers[i].flower.id)
+            favidlist.add(flowers[i].flower.id.toInt())
         }
         val csvList = StringBuilder()
         for (s in favidlist) {
