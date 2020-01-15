@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -22,8 +23,11 @@ import java.lang.Exception
 class FlowerDetailFragment : Fragment(),FlowerDetailView {
 
     var flowerPresenter = FlowerDetailPresenter(this)
-    var favidlist = listOf<String>()
-    var i=true
+
+    lateinit var list : List<Int>
+    var auth_key : String = "nista"
+    var id1 : Int = 0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,48 +37,32 @@ class FlowerDetailFragment : Fragment(),FlowerDetailView {
 
     override fun onStart() {
         super.onStart()
+        getArgument()
+        flowerPresenter.getFlowerDetail(id1)
 
-        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        prefs.apply {
-            val favlist = getString("favlist","")
-            favidlist = favlist.split(",")
-            Log.d("list",favlist)
-        }
 
+        fav_btn.setOnClickListener(View.OnClickListener {
+            flowerPresenter.setFlowerFavorite(id1,auth_key)
+            changeFavBackground()
+        })
+    }
+    fun getArgument(){
         arguments?.let {
             val safeArgs = FlowerDetailFragmentArgs.fromBundle(it)
-            val id1 = safeArgs.flowerid
-            flowerPresenter.getFlowerDetail(id1)
-            if(favidlist.contains(id1.toString())){ i=false
-                fav_btn.setBackgroundResource(R.drawable.ic_icon)
-            }else{ i=true
-                fav_btn.setBackgroundResource(R.drawable.ic_group)
-            }
-            fav_btn.setOnClickListener(View.OnClickListener {
-                if(i==true){ i=false
-                    clickFavBtn(id1)
-                    fav_btn.setBackgroundResource(R.drawable.ic_icon)
-                }else{ i=true
-                    fav_btn.setBackgroundResource(R.drawable.ic_group)
-                }
-            })
+            id1 = safeArgs.flowerid
+            list = safeArgs.favList.toList()
+        }
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        prefs.apply {
+            auth_key = getString("auth_token","")
         }
     }
-    fun clickFavBtn(id1:Int){
-        try{
-            val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-            prefs.apply {
-                val auth_key = getString("auth_token","")
-                flowerPresenter.setFlowerFavorite(id1,auth_key)
-            }
-        }catch (e:Exception){
-            Log.d("refresh","go to login")
-        }
+    fun changeFavBackground(){
+        fav_btn.setBackgroundResource(R.drawable.ic_icon)
     }
     override fun getFlowerDetails(flowerdetail: Flower) {
-        @NonNull
-        if(favidlist.contains(flowerdetail.id.toString())){
-            fav_btn.setBackgroundResource(R.drawable.ic_icon)
+        if(list.contains(id1)){
+            changeFavBackground()
         }
         name.text = flowerdetail.name
         latin_name.text = flowerdetail.latin_name
@@ -95,7 +83,16 @@ class FlowerDetailFragment : Fragment(),FlowerDetailView {
         pBar.visibility = View.GONE
     }
 
-    override fun getflowerfavorite(flowerFavorite: Int) {
+    override fun refreshToken(succerror: Any) {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        val editor = prefs.edit()
+        editor
+            .putString("auth_token",succerror.toString())
+            .apply()
+        getArgument()
+    }
 
+    override fun refreshTokenFailed() {
+        Toast.makeText(context,"Setting flower favorite failed",Toast.LENGTH_LONG).show()
     }
 }

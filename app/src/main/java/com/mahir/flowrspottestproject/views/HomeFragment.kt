@@ -19,15 +19,10 @@ import com.mahir.flowrspottestproject.adapter.CustomAdapter
 import com.mahir.flowrspottestproject.adapter.CustomAdapterView
 import com.mahir.flowrspottestproject.interfacex.IFlowerView
 import com.mahir.flowrspottestproject.model.FavoriteFlower.FavFlower
-import com.mahir.flowrspottestproject.model.FavoriteFlower.FavoriteFlowers
 import com.mahir.flowrspottestproject.model.Flower
 import com.mahir.flowrspottestproject.presenter.FlowerPresenter
 import kotlinx.android.synthetic.main.fragment_home.*
-
-
-
-
-
+import org.intellij.lang.annotations.Flow
 
 
 class HomeFragment : Fragment(), IFlowerView,CustomAdapterView {
@@ -35,6 +30,8 @@ class HomeFragment : Fragment(), IFlowerView,CustomAdapterView {
 
     var adapter = CustomAdapter(this)
     var flowerPresenter = FlowerPresenter(this)
+    var auth_key : String = "prazno"
+    lateinit var list : IntArray
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,17 +43,16 @@ class HomeFragment : Fragment(), IFlowerView,CustomAdapterView {
 
     override fun onStart() {
         super.onStart()
-        getSeachableText(requireView())
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         prefs.apply {
-            val auth_key = getString("auth_token","")
-            try{
-                flowerPresenter.getDataFromApi(1)
-                flowerPresenter.refreshToken(auth_key)
-                flowerPresenter.getFavorite(1,auth_key)
-            }catch(e:java.lang.Exception){
-                flowerPresenter.refreshToken(auth_key)
-            }
+            auth_key = getString("auth_token","")
+        }
+        try{
+            flowerPresenter.getDataFromApi(1)
+            flowerPresenter.refreshToken(auth_key)
+            flowerPresenter.getFavorite(1,auth_key)
+        }catch(e:java.lang.Exception){
+            flowerPresenter.refreshToken(auth_key)
         }
 
     }
@@ -106,30 +102,16 @@ class HomeFragment : Fragment(), IFlowerView,CustomAdapterView {
         Toast.makeText(context, throwable.toString(),Toast.LENGTH_LONG).show()
     }
 
-    override fun sendItemId(id: Int) {
-        Log.d("got id: ",id.toString())
+    override fun sendItemId(id: Int){
         var findNavController : NavController = navController(requireView())
         val action : HomeFragmentDirections.ActionHomeFragmentToFlowerDetailFragment
-        action = HomeFragmentDirections.actionHomeFragmentToFlowerDetailFragment().setFlowerid(id)
+        action = HomeFragmentDirections.actionHomeFragmentToFlowerDetailFragment(list,auth_key).setFlowerid(id)
         findNavController.navigate(action)
     }
 
-    override fun getFavorites(flowers: List<FavFlower>) {
-        var favidlist = mutableListOf<Int>()
-        for (i in 0..(flowers.size-1)) {
-            favidlist.add(flowers[i].flower.id.toInt())
-        }
-        val csvList = StringBuilder()
-        for (s in favidlist) {
-            csvList.append(s)
-            csvList.append(",")
-        }
-        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        val editor = prefs.edit()
-        editor
-            .putString("favlist",csvList.toString())
-            .apply()
-
+    override fun getFavorites(flowers: List<FavFlower>){
+        list= flowers.map { favFlower -> favFlower.flower.id.toInt() }.toIntArray()
+        adapter.addFavorites(list.toList())
     }
 
     override fun setFavorite(id:Int) {
@@ -140,12 +122,6 @@ class HomeFragment : Fragment(), IFlowerView,CustomAdapterView {
         }
 
     }
-
-    override fun delteFavorite(id:Int) {
-        //Delete favorite code
-    }
-
-
     override fun refreshToken(succerror: Any) {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val editor = prefs.edit()

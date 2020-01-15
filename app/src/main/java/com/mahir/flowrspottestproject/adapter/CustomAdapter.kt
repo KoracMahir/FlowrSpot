@@ -11,20 +11,23 @@ class CustomAdapter(customAdapterView : CustomAdapterView) : RecyclerView.Adapte
 
     val customAdapterView = customAdapterView
     var flowerList: List<Flower> = emptyList()
+    var favoriteflower: List<Int> = emptyList()
 
     fun addItems(flist:List<Flower>){
         this.flowerList = flist
     }
-
+    fun addFavorites(favlist:List<Int>){
+        this.favoriteflower = favlist
+    }
     //this method is returning the view for each item in the list
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_item, parent, false)
-        return CustomViewHolder(v,customAdapterView,parent.context)
+        return CustomViewHolder(v,customAdapterView)
     }
 
     //this method is binding the data on the list
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-        holder.bindItems(flowerList[position])
+        holder.bindItems(flowerList[position],favoriteflower)
     }
 
     //this method is giving the size of the list

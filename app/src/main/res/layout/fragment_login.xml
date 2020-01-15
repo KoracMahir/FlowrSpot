@@ -71,7 +71,7 @@
             app:layout_constraintTop_toBottomOf="@+id/editemail"/>
 
     <Button
-            android:id="@+id/loginbtn"
+            android:id="@+id/loginbtn1"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="48dp"
@@ -84,6 +84,5 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/editpass" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

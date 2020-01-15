@@ -1,7 +1,6 @@
 package com.mahir.flowrspottestproject.interfacex
 
 import com.mahir.flowrspottestproject.model.FavoriteFlower.FavFlower
-import com.mahir.flowrspottestproject.model.FavoriteFlower.FavoriteFlowers
 import com.mahir.flowrspottestproject.model.Flower
 
 interface IFlowerView{

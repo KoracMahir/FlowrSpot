@@ -29,15 +29,23 @@ class FlowerDetailPresenter(flowerDetailView: FlowerDetailView){
     fun setFlowerFavorite(flower_id:Int,auth_key:String?){
         RetrofitServices.create()
             .postLike(flower_id,auth_key)
-            .enqueue(object:Callback<DeleteFavorite>{
-
-                override fun onResponse(call: Call<DeleteFavorite>,response: Response<DeleteFavorite>) {
-                    flowerDetailView.getflowerfavorite(response.body()!!.user_id)
+            .enqueue(object:Callback<Flower>{
+                override fun onResponse(call: Call<Flower>,response: Response<Flower>) {}
+                override fun onFailure(call: Call<Flower>, t: Throwable) {}
+            })
+    }
+    fun refreshToken(auth_key:String){
+        RetrofitServices.create()
+            .refreshToken(auth_key)
+            .enqueue(object : Callback<LoginResponse> {
+                override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                    flowerDetailView.refreshToken(response.body()?.auth_token.toString())
                 }
 
-                override fun onFailure(call: Call<DeleteFavorite>, t: Throwable) {
-
+                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                    flowerDetailView.refreshTokenFailed()
                 }
+
             })
     }
 }

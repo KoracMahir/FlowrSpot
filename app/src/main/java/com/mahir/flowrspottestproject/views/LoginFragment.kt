@@ -24,17 +24,12 @@ import java.lang.Exception
 class LoginFragment : Fragment(),LoginView {
 
     var loginPresenter = LoginPresenter(this)
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_login, container, false)
-}
-
+    }
     override fun onStart() {
         super.onStart()
-
-        loginbtn.setOnClickListener(View.OnClickListener {
+        loginbtn1.setOnClickListener(View.OnClickListener {
             loginPresenter.postLogin(Login(editemail.text.toString(),editpass.text.toString()))
         })
     }
