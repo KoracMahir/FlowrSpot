@@ -6,5 +6,6 @@ interface FlowerDetailView{
     fun getFlowerDetails(flowerdetail: Flower)
     fun moveProgressBar()
     fun showProgressBar()
-    fun getflowerfavorite(flowerFavorite: Int)
+    fun refreshToken(succerror:Any)
+    fun refreshTokenFailed()
 }

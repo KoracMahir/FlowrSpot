@@ -22,12 +22,7 @@ interface RetrofitServices{
 
     @POST("/api/v1/flowers/{flower_id}/favorites")
     fun postLike(@Path("flower_id") flower_id:Int
-                ,@Header("Authorization") auth_key:String?) : Call<DeleteFavorite>
-
-    @DELETE("/api/v1/flowers/{flower_id}/favorites/{id}")
-    fun deleteLike(@Path("flower_id")flower_id: Int
-                ,@Path("id")id: Int
-                ,@Header("Authorization") auth_key:String?) : Call<DeleteFavorite>
+                ,@Header("Authorization") auth_key:String?) : Call<Flower>
 
     @GET("/api/v1/flowers/favorites?")
     fun getFavorite(@Query("page") page:Int

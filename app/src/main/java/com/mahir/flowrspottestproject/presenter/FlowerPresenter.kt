@@ -1,12 +1,9 @@
 package com.mahir.flowrspottestproject.presenter
 
 import com.mahir.flowrspottestproject.interfacex.IFlowerView
-import com.mahir.flowrspottestproject.model.DeleteFavorite
+import com.mahir.flowrspottestproject.model.*
 import com.mahir.flowrspottestproject.model.FavoriteFlower.FavFlower
 import com.mahir.flowrspottestproject.model.FavoriteFlower.FavoriteFlowers
-import com.mahir.flowrspottestproject.model.Flower
-import com.mahir.flowrspottestproject.model.Flowers
-import com.mahir.flowrspottestproject.model.LoginResponse
 import com.mahir.flowrspottestproject.services.RetrofitServices
 import retrofit2.Call
 import retrofit2.Callback
@@ -65,14 +62,9 @@ class FlowerPresenter(flowerView: IFlowerView){
     fun setFlowerFavorite(flower_id:Int,auth_key:String?){
         RetrofitServices.create()
             .postLike(flower_id,auth_key)
-            .enqueue(object: Callback<DeleteFavorite> {
-                override fun onResponse(call: Call<DeleteFavorite>, response: Response<DeleteFavorite>) {
-
-                }
-
-                override fun onFailure(call: Call<DeleteFavorite>, t: Throwable) {
-
-                }
+            .enqueue(object: Callback<Flower> {
+                override fun onResponse(call: Call<Flower>, response: Response<Flower>) {}
+                override fun onFailure(call: Call<Flower>, t: Throwable) {}
             })
     }
 
