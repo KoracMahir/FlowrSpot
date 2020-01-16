@@ -1,6 +1,6 @@
 package com.mahir.flowrspottestproject.model
 
-data class Login(
+data class LoginPayload(
     var email: String,
     var password: String
 )
