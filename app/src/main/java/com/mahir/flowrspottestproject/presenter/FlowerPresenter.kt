@@ -2,8 +2,7 @@ package com.mahir.flowrspottestproject.presenter
 
 import com.mahir.flowrspottestproject.interfacex.IFlowerView
 import com.mahir.flowrspottestproject.model.*
-import com.mahir.flowrspottestproject.model.FavoriteFlower.FavFlower
-import com.mahir.flowrspottestproject.model.FavoriteFlower.FavoriteFlowers
+import com.mahir.flowrspottestproject.model.FavoriteFlower.FavoriteFlowersResponese
 import com.mahir.flowrspottestproject.services.RetrofitServices
 import retrofit2.Call
 import retrofit2.Callback
@@ -16,12 +15,12 @@ class FlowerPresenter(flowerView: IFlowerView){
         flowerView.showProgressBar()
         RetrofitServices.create()
             .getApi(page)
-            .enqueue(object : Callback<Flowers>{
-                override fun onResponse(call: Call<Flowers>, response: Response<Flowers>) {
+            .enqueue(object : Callback<FlowersResponese>{
+                override fun onResponse(call: Call<FlowersResponese>, response: Response<FlowersResponese>) {
                     flowerView.getFlowers(response.body()?.flowers as List<Flower>)
                     flowerView.moveProgressBar()
                 }
-                override fun onFailure(call: Call<Flowers>, t: Throwable) {
+                override fun onFailure(call: Call<FlowersResponese>, t: Throwable) {
                     flowerView.onDataFailiure(t)
                     flowerView.moveProgressBar()
                 }
@@ -31,12 +30,12 @@ class FlowerPresenter(flowerView: IFlowerView){
         flowerView.showProgressBar()
         RetrofitServices.create()
             .getSearchApi(flowername)
-            .enqueue(object : Callback<Flowers>{
-                override fun onResponse(call: Call<Flowers>, response: Response<Flowers>) {
+            .enqueue(object : Callback<FlowersResponese>{
+                override fun onResponse(call: Call<FlowersResponese>, response: Response<FlowersResponese>) {
                     flowerView.getFlowers(response.body()?.flowers as List<Flower>)
                     flowerView.moveProgressBar()
                 }
-                override fun onFailure(call: Call<Flowers>, t: Throwable) {
+                override fun onFailure(call: Call<FlowersResponese>, t: Throwable) {
                     flowerView.onDataFailiure(t)
                     flowerView.moveProgressBar()
                 }
@@ -46,15 +45,15 @@ class FlowerPresenter(flowerView: IFlowerView){
     fun getFavorite(page:Int,auth_key:String?){
         RetrofitServices.create()
             .getFavorite(page,auth_key)
-            .enqueue(object : Callback<FavoriteFlowers>{
-                override fun onResponse(call: Call<FavoriteFlowers>, response: Response<FavoriteFlowers>) {
+            .enqueue(object : Callback<FlowersResponese>{
+                override fun onResponse(call: Call<FlowersResponese>, response: Response<FlowersResponese>) {
                     if (response.code()==401)
                         flowerView.refreshTokenFailed()
                     else
-                        flowerView.getFavorites(response.body()?.fav_flowers as List<FavFlower>)
+                        flowerView.getFavorites(response.body()?.fav_flowers as List<FavoriteFlowersResponese>)
                 }
 
-                override fun onFailure(call: Call<FavoriteFlowers>, t: Throwable) {
+                override fun onFailure(call: Call<FlowersResponese>, t: Throwable) {
                     flowerView.onDataFailiure(t)
                 }
             })

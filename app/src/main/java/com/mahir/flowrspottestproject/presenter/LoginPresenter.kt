@@ -1,16 +1,16 @@
 package com.mahir.flowrspottestproject.presenter
 
 import com.mahir.flowrspottestproject.interfacex.LoginView
+import com.mahir.flowrspottestproject.model.LoginPayload
 import com.mahir.flowrspottestproject.model.LoginResponse
 import com.mahir.flowrspottestproject.services.RetrofitServices
 import retrofit2.Call
 import retrofit2.Response
-import com.mahir.flowrspottestproject.model.Login as Login1
 
 class LoginPresenter(loginview: LoginView){
     val loginView = loginview
 
-    fun postLogin(login: Login1){
+    fun postLogin(login: LoginPayload){
         RetrofitServices.create()
             .postLoginInformation(login)
             .enqueue(object : retrofit2.Callback<LoginResponse>{
