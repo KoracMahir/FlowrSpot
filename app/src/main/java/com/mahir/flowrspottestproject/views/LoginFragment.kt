@@ -1,10 +1,7 @@
 package com.mahir.flowrspottestproject.views
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,11 +12,9 @@ import androidx.navigation.Navigation
 
 import com.mahir.flowrspottestproject.R
 import com.mahir.flowrspottestproject.interfacex.LoginView
-import com.mahir.flowrspottestproject.model.Login
-import com.mahir.flowrspottestproject.model.LoginResponse
+import com.mahir.flowrspottestproject.model.LoginPayload
 import com.mahir.flowrspottestproject.presenter.LoginPresenter
 import kotlinx.android.synthetic.main.fragment_login.*
-import java.lang.Exception
 
 class LoginFragment : Fragment(),LoginView {
 
@@ -30,7 +25,7 @@ class LoginFragment : Fragment(),LoginView {
     override fun onStart() {
         super.onStart()
         loginbtn1.setOnClickListener(View.OnClickListener {
-            loginPresenter.postLogin(Login(editemail.text.toString(),editpass.text.toString()))
+            loginPresenter.postLogin(LoginPayload(editemail.text.toString(),editpass.text.toString()))
         })
     }
     fun navController(view: View):NavController{

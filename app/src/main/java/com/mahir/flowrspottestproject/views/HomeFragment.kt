@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,11 +17,10 @@ import com.mahir.flowrspottestproject.R
 import com.mahir.flowrspottestproject.adapter.CustomAdapter
 import com.mahir.flowrspottestproject.adapter.CustomAdapterView
 import com.mahir.flowrspottestproject.interfacex.IFlowerView
-import com.mahir.flowrspottestproject.model.FavoriteFlower.FavFlower
+import com.mahir.flowrspottestproject.model.FavoriteFlower.FavoriteFlowersResponese
 import com.mahir.flowrspottestproject.model.Flower
 import com.mahir.flowrspottestproject.presenter.FlowerPresenter
 import kotlinx.android.synthetic.main.fragment_home.*
-import org.intellij.lang.annotations.Flow
 
 
 class HomeFragment : Fragment(), IFlowerView,CustomAdapterView {
@@ -36,7 +34,7 @@ class HomeFragment : Fragment(), IFlowerView,CustomAdapterView {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view : View = inflater.inflate(R.layout.fragment_home, container, false)
+        val view : View= inflater.inflate(R.layout.fragment_home, container, false)
         return view
     }
 
@@ -47,14 +45,20 @@ class HomeFragment : Fragment(), IFlowerView,CustomAdapterView {
         prefs.apply {
             auth_key = getString("auth_token","")
         }
+        getSeachableText(requireView())
         try{
+            flowerPresenter.getFavorite(1,auth_key)
             flowerPresenter.getDataFromApi(1)
             flowerPresenter.refreshToken(auth_key)
-            flowerPresenter.getFavorite(1,auth_key)
         }catch(e:java.lang.Exception){
             flowerPresenter.refreshToken(auth_key)
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        flowerPresenter.refreshToken(auth_key)
     }
 
     fun navController(view: View):NavController{
@@ -109,7 +113,7 @@ class HomeFragment : Fragment(), IFlowerView,CustomAdapterView {
         findNavController.navigate(action)
     }
 
-    override fun getFavorites(flowers: List<FavFlower>){
+    override fun getFavorites(flowers: List<FavoriteFlowersResponese>){
         list= flowers.map { favFlower -> favFlower.flower.id.toInt() }.toIntArray()
         adapter.addFavorites(list.toList())
     }
@@ -123,10 +127,12 @@ class HomeFragment : Fragment(), IFlowerView,CustomAdapterView {
 
     }
     override fun refreshToken(succerror: Any) {
+        var auth_token ="prazantoken"
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        auth_token=succerror.toString()
         val editor = prefs.edit()
         editor
-            .putString("auth_token",succerror.toString())
+            .putString("auth_token",auth_token)
             .apply()
     }
 
