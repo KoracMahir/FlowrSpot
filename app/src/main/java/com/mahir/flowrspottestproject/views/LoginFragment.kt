@@ -40,7 +40,7 @@ class LoginFragment : Fragment(),LoginView {
                 .putString("auth_token",situation.toString())
                 .apply()
             var findNavController : NavController = navController(requireView())
-            findNavController.navigate(R.id.action_loginFragment_to_homeFragment)
+            findNavController.navigate(R.id.action_loginFragment_to_splashFragment)
         }
     }
 

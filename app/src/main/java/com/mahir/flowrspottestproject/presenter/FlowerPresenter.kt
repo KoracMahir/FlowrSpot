@@ -21,7 +21,7 @@ class FlowerPresenter(flowerView: IFlowerView){
                     flowerView.moveProgressBar()
                 }
                 override fun onFailure(call: Call<FlowersResponese>, t: Throwable) {
-                    flowerView.onDataFailiure(t)
+                    flowerView.onTokenFailiure()
                     flowerView.moveProgressBar()
                 }
             })
@@ -36,7 +36,7 @@ class FlowerPresenter(flowerView: IFlowerView){
                     flowerView.moveProgressBar()
                 }
                 override fun onFailure(call: Call<FlowersResponese>, t: Throwable) {
-                    flowerView.onDataFailiure(t)
+                    flowerView.onTokenFailiure()
                     flowerView.moveProgressBar()
                 }
             })
@@ -48,7 +48,7 @@ class FlowerPresenter(flowerView: IFlowerView){
             .enqueue(object : Callback<FlowersResponese>{
                 override fun onResponse(call: Call<FlowersResponese>, response: Response<FlowersResponese>) {
                     if (response.code()==401)
-                        flowerView.refreshTokenFailed()
+                        flowerView.onTokenFailiure()
                     else
                         flowerView.getFavorites(response.body()?.fav_flowers as List<FavoriteFlowersResponese>)
                 }
@@ -67,19 +67,5 @@ class FlowerPresenter(flowerView: IFlowerView){
             })
     }
 
-    fun refreshToken(auth_key:String){
-        RetrofitServices.create()
-            .refreshToken(auth_key)
-            .enqueue(object : Callback<LoginResponse> {
 
-                override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
-                    flowerView.refreshToken(response.body()?.auth_token.toString())
-                }
-
-                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                    flowerView.refreshTokenFailed()
-                }
-
-            })
-    }
 }
