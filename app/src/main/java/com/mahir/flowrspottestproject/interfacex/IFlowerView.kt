@@ -9,6 +9,5 @@ interface IFlowerView{
     fun moveProgressBar()
     fun showProgressBar()
     fun getFavorites(flowers: List<FavoriteFlowersResponese>)
-    fun refreshToken(succerror:Any)
-    fun refreshTokenFailed()
+    fun onTokenFailiure()
 }

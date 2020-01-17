@@ -25,7 +25,6 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment(), IFlowerView,CustomAdapterView {
 
-
     var adapter = CustomAdapter(this)
     var flowerPresenter = FlowerPresenter(this)
     var auth_key : String = "prazno"
@@ -46,19 +45,8 @@ class HomeFragment : Fragment(), IFlowerView,CustomAdapterView {
             auth_key = getString("auth_token","")
         }
         getSeachableText(requireView())
-        try{
-            flowerPresenter.getFavorite(1,auth_key)
-            flowerPresenter.getDataFromApi(1)
-            flowerPresenter.refreshToken(auth_key)
-        }catch(e:java.lang.Exception){
-            flowerPresenter.refreshToken(auth_key)
-        }
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-        flowerPresenter.refreshToken(auth_key)
+        flowerPresenter.getFavorite(1,auth_key)
+        flowerPresenter.getDataFromApi(1)
     }
 
     fun navController(view: View):NavController{
@@ -126,17 +114,7 @@ class HomeFragment : Fragment(), IFlowerView,CustomAdapterView {
         }
 
     }
-    override fun refreshToken(succerror: Any) {
-        var auth_token ="prazantoken"
-        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        auth_token=succerror.toString()
-        val editor = prefs.edit()
-        editor
-            .putString("auth_token",auth_token)
-            .apply()
-    }
-
-    override fun refreshTokenFailed() {
-        findNavController().navigate(R.id.action_homeFragment_to_loginFragment3)
+    override fun onTokenFailiure() {
+        findNavController().navigate(R.id.action_homeFragment_to_splashFragment)
     }
 }
