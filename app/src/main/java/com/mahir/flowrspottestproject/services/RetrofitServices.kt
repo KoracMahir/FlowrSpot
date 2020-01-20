@@ -30,6 +30,10 @@ interface RetrofitServices{
     @GET("/api/v1/users/me/refresh")
     fun refreshToken(@Header("Authorization") auth_key:String?):Call<LoginResponse>
 
+    @POST("/api/v1/users/register")
+    fun postRegisterInformation(@Body request: RegisterPayload):Call<LoginResponse>
+
+
 
     companion object {
         fun create(): RetrofitServices{

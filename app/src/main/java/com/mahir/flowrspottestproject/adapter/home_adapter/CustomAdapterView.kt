@@ -1,4 +1,4 @@
-package com.mahir.flowrspottestproject.adapter
+package com.mahir.flowrspottestproject.adapter.home_adapter
 
 import androidx.navigation.NavController
 

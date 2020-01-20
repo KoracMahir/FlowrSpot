@@ -1,20 +1,17 @@
-package com.mahir.flowrspottestproject.adapter
+package com.mahir.flowrspottestproject.adapter.home_adapter
 
-import android.content.Context
-import android.preference.PreferenceManager
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mahir.flowrspottestproject.R
 import com.mahir.flowrspottestproject.model.Flower
-import kotlinx.android.synthetic.main.fragment_flower_detail.view.*
 import kotlinx.android.synthetic.main.recycler_view_item.view.*
 import kotlinx.android.synthetic.main.recycler_view_item.view.fav_btn
 import kotlinx.android.synthetic.main.recycler_view_item.view.latin_name
 import kotlinx.android.synthetic.main.recycler_view_item.view.name
 import kotlinx.android.synthetic.main.recycler_view_item.view.sightings
 
-class CustomViewHolder(itemView: View,customAdapterView:CustomAdapterView) : RecyclerView.ViewHolder(itemView){
+class CustomViewHolder(itemView: View,customAdapterView: CustomAdapterView) : RecyclerView.ViewHolder(itemView){
 
     val customAdapterView =customAdapterView
     fun bindItems(flower: Flower,list: List<Int>) {

@@ -14,8 +14,8 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.mahir.flowrspottestproject.R
-import com.mahir.flowrspottestproject.adapter.CustomAdapter
-import com.mahir.flowrspottestproject.adapter.CustomAdapterView
+import com.mahir.flowrspottestproject.adapter.home_adapter.CustomAdapter
+import com.mahir.flowrspottestproject.adapter.home_adapter.CustomAdapterView
 import com.mahir.flowrspottestproject.interfacex.IFlowerView
 import com.mahir.flowrspottestproject.model.FavoriteFlower.FavoriteFlowersResponese
 import com.mahir.flowrspottestproject.model.Flower
@@ -23,7 +23,8 @@ import com.mahir.flowrspottestproject.presenter.FlowerPresenter
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
-class HomeFragment : Fragment(), IFlowerView,CustomAdapterView {
+class HomeFragment : Fragment(), IFlowerView,
+    CustomAdapterView {
 
     var adapter = CustomAdapter(this)
     var flowerPresenter = FlowerPresenter(this)

@@ -1,4 +1,4 @@
-package com.mahir.flowrspottestproject.adapter
+package com.mahir.flowrspottestproject.adapter.home_adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -22,7 +22,10 @@ class CustomAdapter(customAdapterView : CustomAdapterView) : RecyclerView.Adapte
     //this method is returning the view for each item in the list
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_item, parent, false)
-        return CustomViewHolder(v,customAdapterView)
+        return CustomViewHolder(
+            v,
+            customAdapterView
+        )
     }
 
     //this method is binding the data on the list
