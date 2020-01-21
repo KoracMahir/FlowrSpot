@@ -2,22 +2,16 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/whitegrey"
+        android:layout_margin="5dp"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="280dp"
-            android:src="@drawable/image"
-            android:scaleType="centerCrop"
-            android:id="@+id/flowerimage"
-            app:layout_constraintTop_toTopOf="parent"
-        />
     <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/image"
             android:id="@+id/profile_picture"
-            app:layout_constraintTop_toBottomOf="@id/flowerimage"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_margin="20dp"/>
     <TextView
@@ -25,7 +19,7 @@
             android:layout_height="wrap_content"
             android:text="Flower name"
             android:id="@+id/name"
-            app:layout_constraintTop_toBottomOf="@id/flowerimage"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toRightOf="@id/profile_picture"
             android:layout_marginLeft="36dp"
             android:layout_marginTop="20dp"
@@ -39,19 +33,20 @@
             app:layout_constraintLeft_toRightOf="@id/profile_picture"
             android:layout_marginLeft="36dp"/>
     <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/profile_picture"
             android:id="@+id/description"
-            android:text="Jedan je od najvažnijih protagonista hrvatske slikarske scene druge polovice 19. stoljeća i početka 20. stoljeća. Zapažen uspjeh postigao je u žanru povijesnih kompozicija, a iako je svoj izraz pronašao u različitim slikarskim vrstama, značajno je doprinio afirmaciji pejzaža u hrvatskome slikarstvu."
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:padding="25dp"/>
+            android:layout_marginTop="20dp"
+            android:layout_margin="25dp"/>
     <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:src="@drawable/ic_001_chat"
             android:id="@+id/comment"
+            android:layout_marginTop="10dp"
             app:layout_constraintTop_toBottomOf="@id/description"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginLeft="20dp"
@@ -60,6 +55,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="18 comments"
+            android:id="@+id/commentnum"
+            android:layout_marginTop="10dp"
             app:layout_constraintTop_toBottomOf="@id/description"
             app:layout_constraintLeft_toRightOf="@id/comment"
             android:layout_marginLeft="23dp"/>
@@ -69,6 +66,7 @@
             android:layout_height="20dp"
             android:src="@drawable/ic_pl_icon_favorite"
             android:id="@+id/favorite"
+            android:layout_marginTop="10dp"
             app:layout_constraintTop_toBottomOf="@id/description"
             app:layout_constraintRight_toLeftOf="@id/fav_num"
             android:layout_marginRight="23dp"
@@ -78,6 +76,7 @@
             android:layout_height="wrap_content"
             android:text="18 favorites"
             android:id="@+id/fav_num"
+            android:layout_marginTop="10dp"
             app:layout_constraintTop_toBottomOf="@id/description"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginRight="75dp"
