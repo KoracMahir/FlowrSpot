@@ -13,8 +13,12 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 
 import com.mahir.flowrspottestproject.R
+import com.mahir.flowrspottestproject.adapter.favorite_adapter.FavoriteAdapter
+import com.mahir.flowrspottestproject.adapter.sightings_adapter.SightingsAdapter
 import com.mahir.flowrspottestproject.interfacex.FlowerDetailView
 import com.mahir.flowrspottestproject.model.Flower
+import com.mahir.flowrspottestproject.model.sightingmodels.FlowerSightingsModel
+import com.mahir.flowrspottestproject.model.sightingmodels.Sighting
 import com.mahir.flowrspottestproject.presenter.FlowerDetailPresenter
 import kotlinx.android.synthetic.main.fragment_flower_detail.*
 import kotlinx.android.synthetic.main.fragment_flower_detail.pBar
@@ -23,7 +27,7 @@ import java.lang.Exception
 class FlowerDetailFragment : Fragment(),FlowerDetailView {
 
     var flowerPresenter = FlowerDetailPresenter(this)
-
+    var adapter = SightingsAdapter()
     lateinit var list : List<Int>
     var auth_key : String = "nista"
     var id1 : Int = 0
@@ -39,12 +43,15 @@ class FlowerDetailFragment : Fragment(),FlowerDetailView {
         super.onStart()
         getArgument()
         flowerPresenter.getFlowerDetail(id1)
-
-
+        flowerPresenter.getFloserSightings(id1)
         fav_btn.setOnClickListener(View.OnClickListener {
             flowerPresenter.setFlowerFavorite(id1,auth_key)
             changeFavBackground()
         })
+    }
+    override fun getFlowerSightings(sightingsList: List<Sighting>) {
+        adapter.addItems(sightingsList)
+        recyclerView.adapter = adapter
     }
     fun getArgument(){
         arguments?.let {

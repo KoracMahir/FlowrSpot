@@ -2,6 +2,8 @@ package com.mahir.flowrspottestproject.presenter
 
 import com.mahir.flowrspottestproject.interfacex.FlowerDetailView
 import com.mahir.flowrspottestproject.model.*
+import com.mahir.flowrspottestproject.model.sightingmodels.FlowerSightingsModel
+import com.mahir.flowrspottestproject.model.sightingmodels.Sighting
 import com.mahir.flowrspottestproject.services.RetrofitServices
 import retrofit2.Call
 import retrofit2.Callback
@@ -46,6 +48,19 @@ class FlowerDetailPresenter(flowerDetailView: FlowerDetailView){
                     flowerDetailView.refreshTokenFailed()
                 }
 
+            })
+    }
+    fun getFloserSightings(id:Int){
+        RetrofitServices.create()
+            .getFlowerSightings(id)
+            .enqueue(object:Callback<FlowerSightingsModel>{
+                override fun onResponse(call: Call<FlowerSightingsModel>, response: Response<FlowerSightingsModel>) {
+                    flowerDetailView.getFlowerSightings(response.body()?.sightings as List<Sighting>)
+                }
+
+                override fun onFailure(call: Call<FlowerSightingsModel>, t: Throwable) {
+
+                }
             })
     }
 }

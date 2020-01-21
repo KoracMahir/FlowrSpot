@@ -1,6 +1,7 @@
 package com.mahir.flowrspottestproject.services
 
 import com.mahir.flowrspottestproject.model.*
+import com.mahir.flowrspottestproject.model.sightingmodels.FlowerSightingsModel
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -33,7 +34,8 @@ interface RetrofitServices{
     @POST("/api/v1/users/register")
     fun postRegisterInformation(@Body request: RegisterPayload):Call<LoginResponse>
 
-
+    @GET("/api/v1/flowers/{id}/sightings")
+    fun getFlowerSightings(@Path("id")id:Int):Call<FlowerSightingsModel>
 
     companion object {
         fun create(): RetrofitServices{
