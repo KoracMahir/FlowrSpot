@@ -5,13 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mahir.flowrspottestproject.R
 import com.mahir.flowrspottestproject.adapter.favorite_adapter.FavoriteViewHolder
+import com.mahir.flowrspottestproject.model.FavoriteFlower.FavoriteFlowersResponese
 import com.mahir.flowrspottestproject.model.Flower
 
 class FavoriteAdapter : RecyclerView.Adapter<FavoriteViewHolder>(){
 
-    var flowerList: List<Flower> = emptyList()
+    var flowerList: List<FavoriteFlowersResponese> = emptyList()
 
-    fun addItems(flist:List<Flower>){
+    fun addItems(flist:List<FavoriteFlowersResponese>){
         this.flowerList = flist
     }
 
