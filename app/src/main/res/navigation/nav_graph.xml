@@ -39,6 +39,12 @@
                 android:name="auth_key"
                 app:argType="string"
                 app:nullable="true" />
+        <action
+                android:id="@+id/action_flowerDetailFragment_to_newSightingFragment2"
+                app:destination="@id/newSightingFragment" />
+        <action
+                android:id="@+id/action_flowerDetailFragment_to_sightingDetailFragment"
+                app:destination="@id/sightingDetailFragment" />
     </fragment>
     <fragment
             android:id="@+id/loginFragment"
@@ -85,5 +91,20 @@
         <action
                 android:id="@+id/action_registerFragment_to_splashFragment"
                 app:destination="@id/splashFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/newSightingFragment"
+            android:name="com.mahir.flowrspottestproject.views.NewSightingFragment"
+            android:label="fragment_new_sighting"
+            tools:layout="@layout/fragment_new_sighting" />
+    <fragment
+            android:id="@+id/sightingDetailFragment"
+            android:name="com.mahir.flowrspottestproject.views.SightingDetailFragment"
+            android:label="fragment_sighting_detail"
+            tools:layout="@layout/fragment_sighting_detail">
+        <argument
+                android:name="sighting_id"
+                android:defaultValue="1"
+                app:argType="integer" />
     </fragment>
 </navigation>

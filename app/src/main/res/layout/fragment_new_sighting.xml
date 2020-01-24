@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".views.NewSightingFragment">
+
+    <Toolbar
+            android:id="@+id/toolbar1"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layoutMode="clipBounds"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_action_name" />
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="25dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_pl_logo" />
+        </RelativeLayout>
+    </Toolbar>
+    <ScrollView
+            app:layout_constraintTop_toBottomOf="@id/toolbar1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+            <ImageView
+                    android:id="@+id/map"
+                    android:layout_width="match_parent"
+                    android:layout_height="242dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/map"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+            <TextView
+                    android:id="@id/title"
+                    android:layout_width="191dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="28dp"
+                    android:text="Add New Sighting"
+                    android:textSize="24dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/map" />
+
+            <TextView
+                    android:id="@+id/subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Explore between more then 8.427 sightings"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/title" />
+
+            <EditText
+                    android:id="@+id/titleedit"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="27dp"
+                    android:layout_marginRight="24dp"
+                    android:background="@color/whitegrey"
+                    android:hint="Title of the sighting"
+                    android:textSize="12dp"
+                    app:layout_constraintTop_toBottomOf="@id/subtitle" />
+
+            <EditText
+                    android:id="@+id/coordinates"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="24dp"
+                    android:background="@color/whitegrey"
+                    android:hint="Coordinates of the sighting"
+                    android:textSize="12dp"
+                    app:layout_constraintTop_toBottomOf="@id/titleedit" />
+
+            <ImageView
+                    android:id="@+id/addphoto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="17dp"
+                    android:src="@drawable/ic_green_copy"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/coordinates" />
+
+            <EditText
+                    android:id="@+id/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_margin="24dp"
+                    android:background="@color/whitegrey"
+                    android:gravity="start"
+                    android:hint="Add sighting description"
+                    app:layout_constraintTop_toBottomOf="@id/addphoto" />
+
+            <ImageButton
+                    android:id="@+id/addbtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="31dp"
+                    android:background="@color/white"
+                    android:src="@drawable/ic_base"
+                    app:layout_constraintTop_toBottomOf="@+id/description"
+                    android:layout_marginBottom="120dp"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+Add New Sighting"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/addbtn"
+                    app:layout_constraintLeft_toLeftOf="@id/addbtn"
+                    app:layout_constraintRight_toRightOf="@id/addbtn"
+                    app:layout_constraintTop_toTopOf="@id/addbtn"
+                    />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
