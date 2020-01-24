@@ -7,8 +7,9 @@ import com.mahir.flowrspottestproject.R
 import com.mahir.flowrspottestproject.model.sightingmodels.FlowerSightingsModel
 import com.mahir.flowrspottestproject.model.sightingmodels.Sighting
 
-class SightingsAdapter : RecyclerView.Adapter<SightingsViewHolder>() {
+class SightingsAdapter(sightingsAdapterView: SightingsAdapterView) : RecyclerView.Adapter<SightingsViewHolder>() {
 
+    val sightingsAdapterView = sightingsAdapterView
     var sightingList: List<Sighting> = emptyList()
 
     fun addItems(flist:List<Sighting>){
@@ -17,7 +18,7 @@ class SightingsAdapter : RecyclerView.Adapter<SightingsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SightingsViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_sighting, parent, false)
-        return SightingsViewHolder(v)
+        return SightingsViewHolder(v,sightingsAdapterView)
     }
 
     override fun getItemCount(): Int {

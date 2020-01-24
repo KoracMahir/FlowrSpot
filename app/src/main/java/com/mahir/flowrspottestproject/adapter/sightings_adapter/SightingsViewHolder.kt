@@ -10,8 +10,9 @@ import kotlinx.android.synthetic.main.recycler_view_sighting.view.*
 import kotlinx.android.synthetic.main.recycler_view_sighting.view.name
 import kotlinx.android.synthetic.main.recycler_view_sighting.view.profile_picture
 
-class SightingsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+class SightingsViewHolder(itemView: View,sightingsAdapterView: SightingsAdapterView) : RecyclerView.ViewHolder(itemView){
 
+    val sightingsAdapterView = sightingsAdapterView
     fun bindItems(sightingList: Sighting){
         val flowerimageURL : String
         itemView.name.text = sightingList.name
@@ -24,5 +25,8 @@ class SightingsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
             .load("https:"+flowerimageURL)
             .apply(RequestOptions.circleCropTransform())
             .into(itemView.profile_picture)
+        this.itemView.setOnClickListener {
+            sightingsAdapterView.sendSightingId(sightingList.id)
+        }
     }
 }
