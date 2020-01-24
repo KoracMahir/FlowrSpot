@@ -2,6 +2,8 @@ package com.mahir.flowrspottestproject.services
 
 import com.mahir.flowrspottestproject.model.*
 import com.mahir.flowrspottestproject.model.sightingmodels.FlowerSightingsModel
+import com.mahir.flowrspottestproject.model.sightingmodels.Sighting
+import com.mahir.flowrspottestproject.model.sightingmodels.SightingModel
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -12,7 +14,7 @@ interface RetrofitServices{
     fun getApi(@Query("page") page:Int) : Call<FlowersResponese>
 
     @GET("api/v1/flowers/search?")
-    fun getSearchApi(@Query("query") searchtext:String) : Call<FlowersResponese>
+    fun getSearchApi(@Query("query") searchtextingghit:String) : Call<FlowersResponese>
 
     @GET("/api/v1/flowers/{id}")
     fun getFlowerDetailApi(@Path("id") id:Int) : Call<FlowerDetail>
@@ -36,6 +38,23 @@ interface RetrofitServices{
 
     @GET("/api/v1/flowers/{id}/sightings")
     fun getFlowerSightings(@Path("id")id:Int):Call<FlowerSightingsModel>
+
+    @GET("/api/v1/sightings/{id}")
+    fun getSightingDetails(@Path("id")id:Int):Call<SightingModel>
+
+    //POST SIGHING
+    //@POST("/api/v1/sightings")
+    //FormData parameters
+
+    @GET("/api/v1/sightings/{sighting_id}/comments")
+    fun getComments(@Path("sighting_id")sighting_id:Int): Call<CommentsResponse>
+
+    @POST("/api/v1/sightings/{sighting_id}/comments")
+    fun postComment(@Path("sighting_id")sighting_id: Int
+                    ,@Body request:CommentPayload
+                    ,@Header("Authorization") auth_key:String?):Call<Comment>
+
+
 
     companion object {
         fun create(): RetrofitServices{

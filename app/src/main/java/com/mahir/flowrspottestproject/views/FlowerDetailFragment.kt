@@ -9,12 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.NonNull
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 
 import com.mahir.flowrspottestproject.R
 import com.mahir.flowrspottestproject.adapter.favorite_adapter.FavoriteAdapter
 import com.mahir.flowrspottestproject.adapter.sightings_adapter.SightingsAdapter
+import com.mahir.flowrspottestproject.adapter.sightings_adapter.SightingsAdapterView
 import com.mahir.flowrspottestproject.interfacex.FlowerDetailView
 import com.mahir.flowrspottestproject.model.Flower
 import com.mahir.flowrspottestproject.model.sightingmodels.FlowerSightingsModel
@@ -24,10 +27,11 @@ import kotlinx.android.synthetic.main.fragment_flower_detail.*
 import kotlinx.android.synthetic.main.fragment_flower_detail.pBar
 import java.lang.Exception
 
-class FlowerDetailFragment : Fragment(),FlowerDetailView {
+class FlowerDetailFragment : Fragment(),FlowerDetailView,SightingsAdapterView {
+
 
     var flowerPresenter = FlowerDetailPresenter(this)
-    var adapter = SightingsAdapter()
+    var adapter = SightingsAdapter(this)
     lateinit var list : List<Int>
     var auth_key : String = "nista"
     var id1 : Int = 0
@@ -48,7 +52,21 @@ class FlowerDetailFragment : Fragment(),FlowerDetailView {
             flowerPresenter.setFlowerFavorite(id1,auth_key)
             changeFavBackground()
         })
+        addbtn.setOnClickListener(View.OnClickListener {
+            findNavController().navigate(R.id.action_flowerDetailFragment_to_newSightingFragment2)
+        })
     }
+    fun navController(view: View):NavController{
+        val navController = Navigation.findNavController(view)
+        return navController
+    }
+    override fun sendSightingId(id: Int) {
+        var findNavController : NavController = navController(requireView())
+        val action : FlowerDetailFragmentDirections.ActionFlowerDetailFragmentToSightingDetailFragment
+        action = FlowerDetailFragmentDirections.actionFlowerDetailFragmentToSightingDetailFragment().setSightingId(id)
+        findNavController.navigate(action)
+    }
+
     override fun getFlowerSightings(sightingsList: List<Sighting>) {
         adapter.addItems(sightingsList)
         recyclerView.adapter = adapter
