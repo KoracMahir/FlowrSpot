@@ -10,4 +10,6 @@ interface IFlowerView{
     fun showProgressBar()
     fun getFavorites(flowers: List<FavoriteFlowersResponese>)
     fun onTokenFailiure()
+    fun onFavoriteMenu()
+    fun onProfileMenu()
 }

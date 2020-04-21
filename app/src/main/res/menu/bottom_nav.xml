@@ -2,22 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+            android:id="@+id/home"
+            android:icon="@drawable/ic_home"
+            android:title="Home"/>
+
+    <item
             android:id="@+id/favorites"
             android:icon="@drawable/favorites"
-            android:title="Favorites"/>
+            android:title="Favorites" />
 
     <item
-            android:id="@+id/comment"
-            android:icon="@drawable/comment"
-            android:title="Comment" />
-
-    <item
-            android:id="@+id/newsighting"
+            android:id="@+id/sightings"
             android:icon="@drawable/newsighting"
-            android:title="Newsighting"/>
+            android:title="Sightings"/>
 
     <item
-            android:id="@+id/sightings_off"
-            android:icon="@drawable/sightings_off"
-            android:title="Sightings Off"/>
+            android:id="@+id/profile"
+            android:icon="@drawable/ic_profile"
+            android:title="Profile"/>
 </menu>
