@@ -1,7 +1,9 @@
 package com.mahir.flowrspottestproject.model
 
+import androidx.annotation.Nullable
+
 data class User (
-    val id : Int,
-    val first_name : String,
-    val last_name : String
+    @Nullable val id : Int?,
+    @Nullable val first_name : String?,
+    @Nullable val last_name : String?
 )

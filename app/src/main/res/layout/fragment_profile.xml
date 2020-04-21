@@ -61,7 +61,8 @@
             app:layout_constraintTop_toBottomOf="@id/name"
             app:layout_constraintLeft_toRightOf="@id/profile_picture"
             android:layout_marginLeft="18dp"
-            android:layout_marginTop="6dp"/>
+            android:layout_marginTop="6dp"
+            android:id="@+id/iduser"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -158,7 +159,8 @@
             android:src="@drawable/ic_base"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/email" />
+            app:layout_constraintTop_toBottomOf="@id/email"
+            app:layout_constraintBottom_toTopOf="@id/bottom_navigation"/>
 
     <TextView
             android:id="@+id/textView"

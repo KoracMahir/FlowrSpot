@@ -54,7 +54,8 @@ interface RetrofitServices{
                     ,@Body request:CommentPayload
                     ,@Header("Authorization") auth_key:String?):Call<Comment>
 
-
+    @GET("/api/v1/users/me")
+    fun getMyProfileInfo(@Header("Authorization") auth_key: String?) : Call<Profile>
 
     companion object {
         fun create(): RetrofitServices{

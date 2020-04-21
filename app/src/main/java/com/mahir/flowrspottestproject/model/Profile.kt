@@ -1,5 +1,7 @@
 package com.mahir.flowrspottestproject.model
 
+import androidx.annotation.Nullable
+
 data class Profile(
-    val user: User
+    @Nullable val user: User?
 )
