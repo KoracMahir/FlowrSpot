@@ -35,6 +35,9 @@ class HomeFragment : Fragment(), IFlowerView,
         savedInstanceState: Bundle?
     ): View? {
         val view : View= inflater.inflate(R.layout.fragment_home, container, false)
+
+
+
         return view
     }
 
@@ -48,6 +51,18 @@ class HomeFragment : Fragment(), IFlowerView,
         getSeachableText(requireView())
         flowerPresenter.getFavorite(1,auth_key)
         flowerPresenter.getDataFromApi(1)
+
+        bottom_navigation.setOnNavigationItemSelectedListener { menuItem ->
+            when(menuItem.itemId){
+                R.id.favorites -> {
+                    findNavController().navigate(R.id.action_homeFragment_to_favoriteFlowersFragment)
+                }
+                R.id.profile -> {
+                    findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
+                }
+            }
+            true
+        }
     }
 
     fun navController(view: View):NavController{
@@ -118,4 +133,14 @@ class HomeFragment : Fragment(), IFlowerView,
     override fun onTokenFailiure() {
         findNavController().navigate(R.id.action_homeFragment_to_splashFragment)
     }
+
+    override fun onFavoriteMenu() {
+        findNavController().navigate(R.id.action_homeFragment_to_favoriteFlowersFragment)
+    }
+
+    override fun onProfileMenu() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+
 }
