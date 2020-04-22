@@ -20,7 +20,11 @@ import com.mahir.flowrspottestproject.interfacex.IFlowerView
 import com.mahir.flowrspottestproject.model.FavoriteFlower.FavoriteFlowersResponese
 import com.mahir.flowrspottestproject.model.Flower
 import com.mahir.flowrspottestproject.presenter.FlowerPresenter
+import kotlinx.android.synthetic.main.fragment_favorite_flowers.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_home.bottom_navigation
+import kotlinx.android.synthetic.main.fragment_home.pBar
+import kotlinx.android.synthetic.main.fragment_home.recyclerView
 
 
 class HomeFragment : Fragment(), IFlowerView,
@@ -44,6 +48,7 @@ class HomeFragment : Fragment(), IFlowerView,
 
     override fun onStart() {
         super.onStart()
+        bottom_navigation.selectedItemId = R.id.home
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         prefs.apply {
             auth_key = getString("auth_token","")
@@ -59,6 +64,9 @@ class HomeFragment : Fragment(), IFlowerView,
                 }
                 R.id.profile -> {
                     findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
+                }
+                R.id.sightings -> {
+                    findNavController().navigate(R.id.action_homeFragment_to_sightingListFragment2)
                 }
             }
             true

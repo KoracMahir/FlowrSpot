@@ -17,10 +17,12 @@ class FavFlowerPresenter(favFlowersView: FavFlowersView) {
             .getFavorite(page,auth_key)
             .enqueue(object : Callback<FlowersResponese> {
                 override fun onResponse(call: Call<FlowersResponese>, response: Response<FlowersResponese>) {
-                    if (response.code()==401)
+                    if (response.code()==401) {
                         favFlowersView.onTokenFailiure()
-                    else
+                        favFlowersView.pBarShow()}
+                    else {
                         favFlowersView.getFavorites(response.body()?.fav_flowers as List<FavoriteFlowersResponese>)
+                        favFlowersView.pBarHide()}
                 }
 
                 override fun onFailure(call: Call<FlowersResponese>, t: Throwable) {

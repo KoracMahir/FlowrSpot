@@ -10,7 +10,9 @@ import com.mahir.flowrspottestproject.R
 import com.mahir.flowrspottestproject.interfacex.ProfileView
 import com.mahir.flowrspottestproject.model.User
 import com.mahir.flowrspottestproject.presenter.ProfilePresenter
+import kotlinx.android.synthetic.main.fragment_favorite_flowers.*
 import kotlinx.android.synthetic.main.fragment_profile.*
+import kotlinx.android.synthetic.main.fragment_profile.bottom_navigation
 
 /**
  * A simple [Fragment] subclass.
@@ -29,6 +31,7 @@ class ProfileFragment : Fragment(),ProfileView {
 
     override fun onStart() {
         super.onStart()
+        bottom_navigation.selectedItemId = R.id.profile
         profilePresenter.getProfileInfo("eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMTgzLCJleHAiOjE1ODc2NDg1Mzd9.lT-yV6uKE4nIfVUYKi1TE0R2s5lnyrXGb_Mt1ekzXMg")
     }
 

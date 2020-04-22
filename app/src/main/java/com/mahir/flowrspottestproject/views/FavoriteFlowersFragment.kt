@@ -35,6 +35,7 @@ class FavoriteFlowersFragment : Fragment(),FavFlowersView {
 
     override fun onStart() {
         super.onStart()
+        bottom_navigation.selectedItemId = R.id.favorites
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         prefs.apply {
             auth_key = getString("auth_token","")
@@ -47,5 +48,15 @@ class FavoriteFlowersFragment : Fragment(),FavFlowersView {
     }
     override fun onTokenFailiure() {
         findNavController().navigate(R.id.action_favoriteFlowersFragment_to_homeFragment)
+    }
+
+    override fun pBarShow() {
+        pBar.visibility = View.VISIBLE
+        recyclerView.visibility = View.GONE
+    }
+
+    override fun pBarHide() {
+        pBar.visibility = View.GONE
+        recyclerView.visibility = View.VISIBLE
     }
 }

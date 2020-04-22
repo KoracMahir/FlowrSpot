@@ -57,6 +57,9 @@ interface RetrofitServices{
     @GET("/api/v1/users/me")
     fun getMyProfileInfo(@Header("Authorization") auth_key: String?) : Call<Profile>
 
+    @GET("/api/v1/sightings")
+    fun getSightingList():Call<FlowerSightingsModel>
+
     companion object {
         fun create(): RetrofitServices{
             val retrofit = Retrofit.Builder()

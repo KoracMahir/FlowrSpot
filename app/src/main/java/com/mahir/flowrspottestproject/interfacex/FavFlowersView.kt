@@ -5,4 +5,6 @@ import com.mahir.flowrspottestproject.model.FavoriteFlower.FavoriteFlowersRespon
 interface FavFlowersView{
     fun getFavorites(flowers: List<FavoriteFlowersResponese>)
     fun onTokenFailiure()
+    fun pBarShow()
+    fun pBarHide()
 }
